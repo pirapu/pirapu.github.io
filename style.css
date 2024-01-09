@@ -63,4 +63,10 @@ nav a {
          text-align: center;
           margin: 0 auto;
      }
+.para-item{
+         width: 70%;
+         text-align: justify;
+          margin: 0 auto;
+     }
+
     </style>
