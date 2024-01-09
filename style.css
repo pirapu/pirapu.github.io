@@ -54,7 +54,8 @@ nav a {
 .container {
   background-color: #EBF4FA; /* Background color for the container */
   padding: 1px; /* Padding for the container */
-  width: 70%;  
+  width: 70%; 
+  height: 10px;
   text-align: center; /* Center the content horizontally */
   margin: 0 auto;
 }
