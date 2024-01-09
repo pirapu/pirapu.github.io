@@ -1,28 +1,44 @@
-body {
-font-family: Arial, sans-serif;
-margin: 20px;
-}
-header {
-text-align: center;
-}
-img {
-  border-radius: 50%;
-  max-width: 200px;
-  margin: 20px;
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        header {
+            text-align: center;
+        }
+     .nav-item {
+      background-color: #EBF4FA; /* Background color for each box */
+      padding: 10px; /* Padding for each box */
+      margin: 0 5px; /* Margin between boxes */
+      display: inline-block;
     }
-section {
-  margin: 20px 0;
-  }
-footer {
-  text-align: center;
-  margin-top: 50px;
-  }
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
+     .nav-container {
+      background-color: #FFC0CB; /* Background color for the box */
+      padding: 10px; /* Padding for the box */
+    }
+     nav a {
+      text-decoration: none;
+      color: #00ff00; /* Change this to the desired font color */
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s ease-in-out;
+    }
 
+    nav a:hover {
+    color: #2916F5;
+    }
+    img {
+        border-radius: 50%;
+        max-width: 200px;
+        margin: 20px;
+    }
+    section {
+        margin: 20px 0;
+    }
+    footer {
+        text-align: center;
+        margin-top: 50px;
+    }
 nav li {
   display: inline-block; /* Display items horizontally */
   margin-right: 20px;
@@ -30,14 +46,21 @@ nav li {
 
 nav a {
   text-decoration: none;
-  color: #fff;
+  color: #000000;
   font-weight: bold;
   font-size: 16px;
   transition: color 0.3s ease-in-out;
 }
-
-nav a:hover {
-  color: #ffd700; /* Change color on hover, you can customize this */
+.container {
+  background-color: #EBF4FA; /* Background color for the container */
+  padding: 1px; /* Padding for the container */
+  width: 70%;  
+  text-align: center; /* Center the content horizontally */
+  margin: 0 auto;
 }
-
-/* Other styling for your content */
+     .sec-item{
+         width: 70%;
+         text-align: center;
+          margin: 0 auto;
+     }
+    </style>
