@@ -55,6 +55,7 @@ nav a {
   background-color: #EBF4FA; /* Background color for the container */
   padding: 1px; /* Padding for the container */
   width: 70%; 
+  height: auto;
   text-align: center; /* Center the content horizontally */
   margin: 0 auto;
 }
@@ -65,7 +66,7 @@ nav a {
      }
 .para-item{
          width: 70%;
-         text-align: justify;
+         text-align: center;
           margin: 0 auto;
      }
 
