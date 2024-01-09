@@ -10,7 +10,18 @@ header {
   padding: 10px;
   text-align: center;
 }
-
+img {
+  border-radius: 50%;
+  max-width: 200px;
+  margin: 20px;
+    }
+section {
+  margin: 20px 0;
+  }
+footer {
+  text-align: center;
+  margin-top: 50px;
+  }
 nav ul {
   list-style-type: none;
   margin: 0;
