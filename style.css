@@ -66,12 +66,14 @@ nav a {
      }
 .para-item{
          width: 70%;
-         text-align: center;
+         text-align: justify;
+         text-align-last: center;
           margin: 0 auto;
      }
 .list-item{
          width: 70%;
-         text-align: center;
+        text-align: justify;
+        text-align-last: center;
           margin: 0 auto;
      }
 .tab2 {
