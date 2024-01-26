@@ -83,5 +83,8 @@ nav a {
     text-align: justify;
     text-align-last: center;
 }
+ .right {
+      text-align: right;
+    }
 
     </style>
