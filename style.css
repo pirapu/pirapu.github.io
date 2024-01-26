@@ -74,5 +74,12 @@ nav a {
          text-align: center;
           margin: 0 auto;
      }
+.tab2 {
+            tab-size: 4;
+        }
+.center-justified {
+    text-align: justify;
+    text-align-last: center;
+}
 
     </style>
