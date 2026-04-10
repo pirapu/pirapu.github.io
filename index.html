@@ -1,261 +1,753 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ponnampalam Pirapuraj</title>
- <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ponnampalam Pirapuraj — PhD Scholar · IITH</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --surface: #ffffff;
+      --surface2: #f0ede6;
+      --accent: #1a3a6b;
+      --accent2: #2a5298;
+      --gold: #8a6820;
+      --text: #1a1a1a;
+      --text-muted: #5a5a5a;
+      --text-light: #888;
+      --border: rgba(26,58,107,0.12);
+      --border-strong: rgba(26,58,107,0.22);
+      --radius: 10px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(1rem, 4vw, 3rem);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 1rem 0;
+      margin-right: 2rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'Playfair Display', serif;
+    }
+    nav ul {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1;
+    }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav button.nav-btn {
+      display: block;
+      padding: 1.05rem 0.85rem;
+      font-size: 0.77rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-bottom: 2.5px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: 'DM Sans', sans-serif;
+      transition: color 0.18s, border-color 0.18s;
+    }
+    nav button.nav-btn:hover { color: var(--accent); }
+    nav button.nav-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      font-weight: 500;
+    }
+
+    .page-container {
+      flex: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      padding: clamp(2rem, 5vh, 4rem) clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .page { display: none; }
+    .page.active { display: block; animation: fadeIn 0.35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    .page-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+    h1 em { color: var(--accent); font-style: normal; }
+    .page-rule {
+      width: 48px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 1.2rem 0 2rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .photo-wrap { flex-shrink: 0; }
+    .photo-ring {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+    }
+    .photo-ring img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: var(--surface2);
+    }
+    .hero-meta {
+      margin-top: 1.2rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 2;
+    }
+    .hero-meta a { color: var(--accent); text-decoration: none; }
+    .hero-meta a:hover { text-decoration: underline; }
+
+    .hero-body { padding-top: 0.25rem; }
+    .hero-intro { font-size: 1rem; color: var(--text-muted); line-height: 1.8; max-width: 580px; }
+    .hero-intro p + p { margin-top: 1rem; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem; }
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface2);
+      color: var(--accent);
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2rem; }
+    .btn {
+      padding: 0.6rem 1.3rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.18s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-primary { background: var(--accent); color: #fff; border: none; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-outline { border: 1.5px solid var(--border-strong); color: var(--accent); background: transparent; }
+    .btn-outline:hover { border-color: var(--accent); background: var(--surface); }
+
+    .page-nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .pager {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--surface);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 0.55rem 1.1rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.15s, color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .pager:hover { background: var(--accent); color: #fff; }
+    .pager.ghost { visibility: hidden; }
+    .page-indicator {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-light);
+      letter-spacing: 0.1em;
+    }
+
+    .timeline { position: relative; padding-left: 1.6rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65rem;
+      bottom: 0.5rem;
+      width: 1px;
+      background: var(--border-strong);
+    }
+    .tl-item { position: relative; margin-bottom: 2rem; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -1.6rem;
+      top: 0.6rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background: var(--bg);
+    }
+    .tl-item.current::before { background: var(--accent); }
+    .tl-role { font-weight: 500; color: var(--text); font-size: 0.95rem; }
+    .tl-org { color: var(--accent2); font-size: 0.83rem; margin-top: 0.15rem; }
+    .tl-date { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-light); margin-top: 0.2rem; }
+
+    .interest-grid { display: grid; gap: 0.65rem; max-width: 420px; }
+    .interest-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+
+    .pub-group {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 2rem 0 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .pub-group::after { content: ''; flex: 1; height: 1px; background: var(--border-strong); }
+    .pub-list { list-style: none; display: grid; gap: 0.8rem; }
+    .pub-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.1rem 1.3rem;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      box-shadow: var(--shadow);
+    }
+    .pub-card a { color: var(--accent); text-decoration: none; font-size: 0.78rem; display: inline-block; margin-top: 0.35rem; }
+    .pub-card a:hover { text-decoration: underline; }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.1rem;
+    }
+    .proj-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .proj-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .proj-card h3 { font-size: 0.93rem; font-weight: 500; color: var(--accent); margin-bottom: 0.5rem; }
+    .proj-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.9rem; }
+    .proj-tags span { font-size: 0.68rem; padding: 0.18rem 0.55rem; border-radius: 100px; background: var(--surface2); color: var(--accent); border: 1px solid var(--border); }
+
+    .award-list { list-style: none; display: grid; gap: 0.75rem; }
+    .award-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.4rem;
+      box-shadow: var(--shadow);
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .award-star {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+    .quals-list { list-style: none; display: grid; gap: 0.65rem; margin-top: 1rem; }
+    .quals-list li { padding: 0.85rem 1.2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.87rem; color: var(--text-muted); box-shadow: var(--shadow); }
+    .quals-list li strong { color: var(--text); }
+    .quals-sub { margin-top: 0.3rem; padding-left: 0.75rem; font-size: 0.8rem; color: var(--text-light); }
+
+    .connect-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+    .connect-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.05rem 1.2rem;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: border-color 0.18s, transform 0.18s;
+    }
+    .connect-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .connect-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      color: var(--accent);
+      font-weight: 700;
+      font-family: 'DM Mono', monospace;
+    }
+    .connect-info label { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-light); cursor: pointer; }
+    .connect-info span { display: block; font-size: 0.82rem; color: var(--accent); word-break: break-all; }
+
+    footer {
+      text-align: center;
+      padding: 1.8rem 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--text-light);
+      background: var(--surface);
+    }
+
+    @media (max-width: 700px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .photo-ring { width: 140px; height: 140px; }
+      .photo-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-    <nav>
-      <ul>
-        <li class="nav-item"><a href="#about-section">About Me</a></li>
-        <li class="nav-item"><a href="#experi-section">Work Experience</a></li>
-        <li class="nav-item"><a href="#qual-section">Acadamic Qualifications</a></li>
-        <li class="nav-item"><a href="#curRes-section">Research Interest</a></li>
-        <li class="nav-item"><a href="#res-section">Research Publications</a></li>
-        <li class="nav-item"><a href="#proj-section">Project profiles</a></li>
-        <li class="nav-item"><a href="#qual-section">Acadamic Qualifications</a></li>
-        <li class="nav-item"><a href="#awd-section">Awards/Fellowships</a></li>
-       
-      </ul>
-    </nav>
-  </header>
-    
-  </header>
-    
-    <header>
-        <h1>Ponnampalam Pirapuraj</h1>
 
-        <img src="11360785.jpg" alt="Your Name">
-        <p class="sec-item">PhD Scholar at Indian Institute of Technology Hyderabad (IITH)</p>
-        <p class="sec-item">E-mail: cs23resch16001@iith.ac.in</p><br><br>
-        <p class="sec-item">Senior Lecturer Gr. II in IT (On Study leave),</p>
-        <p class="sec-item">Dept. of Information & Communication Technology,</p>
-        <p class="sec-item">Faculty of technology,</p>
-         <p class="sec-item">South Eastern University of SriLanka,</p>
-        <p class="sec-item">University Park, Oluvil, #32360, Sri Lanka.</p>
-        <p class="sec-item">E-mail: pirapuraj@seu.ac.lk, ppirapu@gmail.com</p>
-        
-       
-    </header>
+<nav>
+  <div class="nav-inner">
+    <button class="nav-brand" onclick="showPage(0)">P. Pirapuraj</button>
+    <ul>
+      <li><button class="nav-btn active" onclick="showPage(0)">About</button></li>
+      <li><button class="nav-btn" onclick="showPage(1)">Experience</button></li>
+      <li><button class="nav-btn" onclick="showPage(2)">Education</button></li>
+      <li><button class="nav-btn" onclick="showPage(3)">Interests</button></li>
+      <li><button class="nav-btn" onclick="showPage(4)">Publications</button></li>
+      <li><button class="nav-btn" onclick="showPage(5)">Projects</button></li>
+      <li><button class="nav-btn" onclick="showPage(6)">Awards</button></li>
+      <li><button class="nav-btn" onclick="showPage(7)">Connect</button></li>
+    </ul>
+  </div>
+</nav>
 
-    <section id="about-section">
-        <div class="container">
-        <h2>About Me</h2>
-         </div>
-        <p class="para-item">I am a third-year Ph.D. student in the Department of Computer Science & Engineering at the Indian Institute of Technology Hyderabad (IITH), under the supervision of Dr. Jyothi Vedurada. My current research interests include program analysis and Compiler optimization using Large language models and Static analysis.</p> <br>
-<p class="para-item">And, I am a Senior Lecturer at dept. of ICT, Faculty of Technology, South Eastern University of Sri Lanka. I completed my MSc in Computer Science in the Dept. of Computer Science and Engineering, Faculty of Engineering, University of Moratuwa. I have completed my bachelor's degree in Computer Science at South Eastern University of Sri Lanka.</p><br>
+<div class="page-container">
 
-    </section>
+  <!-- PAGE 0: ABOUT -->
+  <div class="page active" id="page-0">
+    <p class="page-eyebrow">PhD Scholar · IIT Hyderabad</p>
+    <h1>Ponnampalam<br><em>Pirapuraj</em></h1>
+    <div class="page-rule"></div>
+    <div class="hero-grid">
+      <div class="photo-wrap">
+        <div class="photo-ring">
+          <img src="11360785.jpg" alt="Ponnampalam Pirapuraj">
+        </div>
+        <div class="hero-meta">
+          <strong>IITH:</strong><br>
+          <a href="mailto:cs23resch16001@iith.ac.in">cs23resch16001@iith.ac.in</a><br><br>
+          <strong>SEUSL:</strong><br>
+          <a href="mailto:pirapuraj@seu.ac.lk">pirapuraj@seu.ac.lk</a><br>
+          <a href="mailto:ppirapu@gmail.com">ppirapu@gmail.com</a>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-intro">
+          <p>I am a third-year Ph.D. student in the Department of Computer Science &amp; Engineering at the Indian Institute of Technology Hyderabad (IITH), under the supervision of Dr. Jyothi Vedurada. My current research interests include program analysis and compiler optimization using large language models and static analysis.</p>
+          <p>I am a Senior Lecturer at the Dept. of ICT, Faculty of Technology, South Eastern University of Sri Lanka (currently on study leave). I completed my MSc in Computer Science from the Dept. of Computer Science &amp; Engineering, University of Moratuwa, and my B.Sc. (Hons) Specialised in Computer Science from South Eastern University of Sri Lanka.</p>
+        </div>
+        <div class="badges">
+          <span class="badge">Program Analysis</span>
+          <span class="badge">Compiler Optimization</span>
+          <span class="badge">LLMs</span>
+          <span class="badge">Static Analysis</span>
+          <span class="badge">Software Engineering</span>
+          <span class="badge">IoT</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://scholar.google.com/citations?hl=en&user=wSi-78AAAAAJ" target="_blank">Google Scholar ↗</a>
+          <a class="btn btn-outline" href="https://orcid.org/0000-0003-0056-7683" target="_blank">ORCID ↗</a>
+          <a class="btn btn-outline" href="https://www.scopus.com/authid/detail.uri?authorId=57195404900" target="_blank">Scopus ↗</a>
+          <button class="btn btn-outline" onclick="showPage(7)">Contact →</button>
+        </div>
+      </div>
+    </div>
+    <div class="page-nav-row">
+      <button class="pager ghost">← Prev</button>
+      <span class="page-indicator">1 / 8</span>
+      <button class="pager" onclick="showPage(1)">Work Experience →</button>
+    </div>
+  </div>
 
-    <section id="experi-section">
-         <div class="container">
-        <h2>Work Experience</h2>
-        </div>
-       <ul class="list-item">
-            <B>Present:</B>
-                                  <li><B>Senior Lecturer in ICT</B> <br> <pre class="tab2">South Eastern University of Sri Lanka – Faculty of Technology        (February 2019 - Present)</pre></li><br><br>
-            <B>Past:</B>
-                                  <li><B>Lecturer in IT and HoD of dept. of IT </B> <br> <pre class="tab2">Sri Lanka Institute of Advance Technology Batticaloa ATI  (September 2017 – February 2019)</pre></li>
-                                
-                                  <li><B> Instructor in Computer science & Engineering </B> <br> <pre class="tab2">University of Moratuwa – Faculty of Engineering, Sri lanka    (February 2015 – March 2017)</pre></li>
-                                  <li> <B> Visiting lecturer in Faculty of Information Technology</B> <br> <pre class="tab2">University of Moratuwa, Sri Lanka    (October 2015 – April 2016)</pre></li>
-                                  <li> <B>Temporary Demonstrator in IT </B> <br> <pre class="tab2">South Eastern University of Sri Lanka    (August 2014 – February 2015)</pre></li>
-                            </ul><br>
-        
-    </section>
-    <section id="qual-section">
-         <div class="container">
-        <h2>Acadamic Qualifications</h2>
-        </div>
-       <ul class="list-item">
-                                  <li><B>PHD (PURSUING) in Computer Science & Engineering </B> <br> <pre class="tab2">Indian Institute OF Technology Hyderabad (IITH) Computer Science & Engineering    (2023 - present)</pre></li>
-                                  <li><B>Research Fellow </B> <br> <pre class="tab2">Indian Institute OF Technology Madras (IITM)    (2022-2023) </pre></li>
-                                  <li><B>MSc in Computer Science </B><br> <pre class="tab2">Department of Computer Science & Engineering   University of Moratuwa    (2015 – 2017)</pre></li>
-                                  <li> <B>B.Sc. (Hons) Specialized in Computer Science </B> <br> <pre class="tab2">South Eastern University of Sri Lanka    (2009 – 2014)</pre></li>
-                            </ul>
-        
-    </section>
+  <!-- PAGE 1: EXPERIENCE -->
+  <div class="page" id="page-1">
+    <p class="page-eyebrow">02 · Career</p>
+    <h2>Work Experience</h2>
+    <div class="page-rule"></div>
+    <div class="timeline">
+      <div class="tl-item current">
+        <div class="tl-role">Senior Lecturer in ICT</div>
+        <div class="tl-org">South Eastern University of Sri Lanka — Faculty of Technology</div>
+        <div class="tl-date">February 2019 — Present (on study leave)</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Lecturer in IT &amp; Head of Department of IT</div>
+        <div class="tl-org">Sri Lanka Institute of Advance Technology Batticaloa ATI</div>
+        <div class="tl-date">September 2017 — February 2019</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Instructor in Computer Science &amp; Engineering</div>
+        <div class="tl-org">University of Moratuwa — Faculty of Engineering, Sri Lanka</div>
+        <div class="tl-date">February 2015 — March 2017</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Visiting Lecturer — Faculty of Information Technology</div>
+        <div class="tl-org">University of Moratuwa, Sri Lanka</div>
+        <div class="tl-date">October 2015 — April 2016</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Temporary Demonstrator in IT</div>
+        <div class="tl-org">South Eastern University of Sri Lanka</div>
+        <div class="tl-date">August 2014 — February 2015</div>
+      </div>
+    </div>
+    <div class="page-nav-row">
+      <button class="pager" onclick="showPage(0)">← About Me</button>
+      <span class="page-indicator">2 / 8</span>
+      <button class="pager" onclick="showPage(2)">Education →</button>
+    </div>
+  </div>
 
-   <section id="curRes-section">
-         <div class="container">
-        <h2>Research Interests</h2>
-        </div>
-        <ul class="list-item">
-                                  <li>Program Analysis</li><br>
-                                  <li>Compiler Optimization</li><br>
-                                  <li>Software Engineering</li><br>
-                                  <li>Internet of Things</li><br>
-                            </ul><br>
-         
-    </section>
+  <!-- PAGE 2: EDUCATION -->
+  <div class="page" id="page-2">
+    <p class="page-eyebrow">03 · Education</p>
+    <h2>Academic Qualifications</h2>
+    <div class="page-rule"></div>
+    <div class="timeline">
+      <div class="tl-item current">
+        <div class="tl-role">PhD (Pursuing) — Computer Science &amp; Engineering</div>
+        <div class="tl-org">Indian Institute of Technology Hyderabad (IITH)</div>
+        <div class="tl-date">2023 — Present</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Research Fellow</div>
+        <div class="tl-org">Indian Institute of Technology Madras (IITM)</div>
+        <div class="tl-date">2022 — 2023</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">MSc in Computer Science</div>
+        <div class="tl-org">Dept. of Computer Science &amp; Engineering, University of Moratuwa</div>
+        <div class="tl-date">2015 — 2017</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">B.Sc. (Hons) Specialised in Computer Science</div>
+        <div class="tl-org">South Eastern University of Sri Lanka</div>
+        <div class="tl-date">2009 — 2014</div>
+      </div>
+    </div>
+    <div class="page-nav-row">
+      <button class="pager" onclick="showPage(1)">← Experience</button>
+      <span class="page-indicator">3 / 8</span>
+      <button class="pager" onclick="showPage(3)">Research Interests →</button>
+    </div>
+  </div>
 
-    <section id="res-section">
-         <div class="container">
-        <h2>Research Publications</h2>
-        </div>
-        <ul class="list-item">
-            <B>Book Chapters</B>
-                                  <li>Kariapper R.K.A.R., Pirapuraj P., Suhail Razeeth M.S., Nafrees A.C.M., Fathima Roshan M.
-(2021) Adaption of Smart Devices and Virtual Reality (VR) in Secondary Education. In: Sharma
-H., Saraswat M., Kumar S., Bansal J.C. (eds) Intelligent Learning for Computer Vision. CIS 2020.
-Lecture Notes on Data Engineering and Communications Technologies, vol 61. Springer,
-Singapore. https://doi.org/10.1007/978-981-33-4582-9_43</li><br>
-                                  <li>Mohamed Nafrees, A.C., Pirapuraj, P., Razeeth, M.S.M., Kariapper, R.K.A.R., Nawaz, S.S.
-(2022). Smart Technologies to Reduce the Spreading of COVID-19: A Survey Study. In: Sharma,
-H., Vyas, V.K., Pandey, R.K., Prasad, M. (eds) Proceedings of the International Conference on
-Intelligent Vision and Computing (ICIVC 2021). ICIVC 2021. Proceedings in Adaptation, Learning
-and Optimization, vol 15. Springer, Cham. https://doi.org/10.1007/978-3-030-97196-0_21</li><br><br>
-            <B>Journal Articles</B>
-                                  <li>P.Pirapuraj, Ahmadh Rifai Kariapper, Suhail Razeeth, A C M. Nafrees, “Effectiveness of Atm
-and Bank Security: Three Factor Authentications With Systemetic Review”, Journal of Physics:
-Conference Series, Volume 1712, International Conference On Computational Physics in
-Emerging Technologies (ICCPET) 2020 1 August 2020, Mangalore, India, 2020 J. Phys.: Conf.
-Ser. 1712 012007</li><br>
-                                  <li>RKAR. Kariapper, MS. Suhail Razeeth, P.Pirapuraj, ACM. Nafrees, AMF. Roshan. (2020).
-POSITIVE IMPACT OF SMART DEVICES AMONG HIGHER EDUCATION STUDENTS.
-PalArch’s Journal of Archaeology of Egypt / Egyptology, 17(7), 11413 - 11321.</li><br>
-                                 <li>Mohammed Satheek Suhail Razeeth, Razik Kariapper Ahmadh Rifai Kariapper, Ponnamplam
-Pirapuraj, Mohamed Jamaldeen Ahmed Sabani, Abdul Carder Mohamed Nafrees, “Influence of
-smart devices and iot applications in tourism: a survey analysis”, Faculty of Management and
-Commerce South Eastern University of Sri Lanka, Journal of Information Systems &
-Information Technology Vol. 5 No. 1 2020 pp. 56-67.</li><br>
-                                  <li>P.Pirapuraj, Ahmadh Rifai Kariapper, Suhail Razeeth, A C M. Nafrees, “RFID based Smart
-Healthcare System: A Survey Analysis”, TEST Engineering & Management 83 (Vol. 83:
-July/August 2020), 4615-4621</li><br>
-                                    <li>P.Pirapuraj, Ahmadh Rifai Kariapper, Suhail Razeeth, A C M. Nafrees, “Emerging Smart
-University using various Technologies: A Survey Analysis”, TEST Engineering & Management
-82 (Vol. 82: Jan/Feb 2020), 17713-17723</li><br>
-                                    <li>Dayananda, L.P.S.S.K., Narmilan, A. and Pirapuraj, P. (2021). An IoT based Low-cost Weather
-Monitoring System for Smart Farming. Agricultural Science Digest. DOI: 10.18805/ag.D-370.</li><br><br>
-            <B>IEEE conference Publications</B>
-                                <li>P.Pirapuraj, Dr.Indika Perera, “Analyzing Source Code Identifier for Code Reuse Using NLP
-Technique and WordNet”, Presented at MERCon IEEE conference – 2017 at University of
-Moratuwa.</li><br>
-                                  <li>P.Pirapuraj, Ahmadh Rifai Kariapper, Suhail Razeeth, A C M. Nafrees, KLM. Ramees “Smart
-Garbage Collection Using GPS & Shortest Path Algorithm”, 2019 IEEE Pune Section
-International Conference (PuneCon) At: MIT World Peace University, Pune, India, December
-2019.</li><br>
-                                  <li>P.Pirapuraj, NV Minnoli, M Saranrai, K Thevaruban, “Automated Ventilation System for
-Maintaining indoor CO2 Concentration to Reduce Allergic and Respiratory Diseases: for Rural
-Area in Batticaloa, Sri Lanka”, 2021 Asian Conference on Innovation in Technology
-(ASIANCON), IEEE, Pages 1-8.</li><br>
-                                  <li>P.Pirapuraj, Dr.Indika Perera, “JarBot: Automated Java Libraries Suggestion in JAR Archives
-Format for a given Software Architecture”, 2021 2nd Global Conference for Advancement in
-Technology (GCAT) Bangalore, India. Oct 1-3, 2021, IEEE.</li><br>
-            <li>M. D. R. Athas and P. Pirapuraj, "CallTran: Voice Translation for End-to-End Communication over the Internet," 
-                2024 Second International Conference on Emerging Trends in Information Technology and Engineering (ICETITE), 
-                Vellore, India, 2024, pp. 1-5, doi: 10.1109/ic-ETITE58242.2024.10493835</li><br>
-            <li>P. Pirapuraj and H. R. Afrath, "Dsn2Code: An automated approach for similarity-based Software Architecture selection for Code reuse," 
-                2024 International Research Conference on Smart Computing and Systems Engineering (SCSE), Colombo, Sri Lanka, 
-                2024, pp. 1-6, doi: 10.1109/SCSE61872.2024.10550890.</li><br><br>
-            <B>Local Conference Publications</B>
-                                <li>P.Pirapuraj, Dr.Indika Perera, “GITHUB Application Program Interface and WordNet for code
-reuse”, presented at Fifth Annual Science Research Session-2016, South Eastern University of
-Sri Lanka.</li><br>
-                                  <li>P.Pirapuraj, Dr.Indika Perera, “Automated Optimization and Suggestion of Libraries and Patterns
-for Software Architectures”, presented at ERU symposium at the University of Moratuwa2016.</li><br>
-                                  <li>P.Pirapuraj, Dr.HMM.Naleer, “Object Tracking System with Smart Phone using GPS”, Third
-Annual Science Research Session-2014, South Eastern University of Sri Lanka.</li><br>
-                                  <li>P.Pirapuraj, Ahmadh Rifai Kariapper, Suhail Razeeth, A C M. Nafrees, “E-Learning At Home Vs
-Traditional Learning Among Higher Education Students: A Survey Based Analysis”, International
-Symposium 2019 - South Eastern university of Sri Lanka At: South Eastern university of Sri
-Lanka, November 2019.</li><br>
-                                    <li>P.Pirapuraj, Ahmadh Rifai Kariapper, Suhail Razeeth, A C M. Nafrees, AM. Fathima Roshan,
-“Perceptions Of Students On Information & Communication Technology Subject: With Special
-Reference To High School Students In Ampara District, Sri Lanka”, Open University Research
-Session 2019 (OURS-2019)At: The Open University of Sri Lanka, October 2019.</li><br>
-                                  <li>P.Pirapuraj, Ahmadh Rifai Kariapper, Suhail Razeeth, A C M. Nafrees, AM. Fathima Roshan,
-“Impact of Social Networking Media among Undergraduates in Higher Educational Institution”,
-4th Annual Research Conference, Trinco2019At: Trinco Campus, Eastern University of Sri
-Lanka, September 2019.</li><br>
-                                  <li>P.Pirapuraj, Ahmadh Rifai Kariapper, Suhail Razeeth, A C M. NafreesI, “Influence of smart
-devices and IoT applications in tourism: a survey analysis”. 8th Annual International Research
-Conference - 2019 [41], Faculty of Management and Commerce, South Eastern University of
-Sri Lanka. November 2019.</li><br>
-                                  <li>Uyaam Maalik, P Pirapuraj, “Intelligent Vehicle diagnostic system for service center using OBD-
-II and Iot”, 1st International Conference- 2021 on Science and Technology,27th July 2021,
+  <!-- PAGE 3: INTERESTS -->
+  <div class="page" id="page-3">
+    <p class="page-eyebrow">04 · Research</p>
+    <h2>Research Interests</h2>
+    <div class="page-rule"></div>
+    <div class="interest-grid">
+      <div class="interest-pill">Program Analysis</div>
+      <div class="interest-pill">Compiler Optimization</div>
+      <div class="interest-pill">Software Engineering</div>
+      <div class="interest-pill">Internet of Things</div>
+      <div class="interest-pill">Large Language Models</div>
+      <div class="interest-pill">Static Analysis</div>
+    </div>
+    <div class="page-nav-row">
+      <button class="pager" onclick="showPage(2)">← Education</button>
+      <span class="page-indicator">4 / 8</span>
+      <button class="pager" onclick="showPage(4)">Publications →</button>
+    </div>
+  </div>
 
-SEUSL, ISBN: 9786245736171</li><br>
-                            </ul><br>
-    </section>
-    <section id="proj-section">
-         <div class="container">
-        <h2>Project Profiles</h2>
-        </div>
-        <ul class="list-item">
-                                  <li><B>MSc Project </B>– Analyzing source code identifiers for code reuse.
-Platforms and tools: JAVA, Eclipse IDE, GitHub API, Information Retrieval, NLP technique.</li><br>
-                                  <li><B>WSo2 Project Competition </B> – WSO2 VirtualHackathon 24 hour’s online challenge. The real-time event
-processing system for smart home
-Platforms and tools: wso2 paas, kubernetes, storm, Spark SQL, wso2 CEP, and wso2 DAS.</li><br>
-                                  <li><B>Intel company IOT Project Competition </B>– The smart home project using Arduino.
-Platforms and tools: Arduino Board and some Electronics equipment.</li><br>
-                                  <li><B>Individual Project</B> – Development of a system named “Object Tracking System with Smart
-Phone”. This project consists of an Android application to broadcast the location of the device
-and a web interface to display them.
-Platforms and tools: JAVA, Eclipse IDE with ADT, MYSQL, PHP, HTML, JavaScript, AJAX.</li><br>
-                                <li><B>Group Project </B>– Development of a Filling Station Management System (Third year group
-project). This project is aimed to reduce human effort and human error in a filling station. And
-also to manage huge amount of staff details, their salary and maintenance.
-Team Role: java programmer, user interface designer, and database maintenance.
-Programs used: Java, SQL, NETBEANS IDE</li><br>
-                                  <li><B>Research Project</B> – Smart Garbage Collection Using GPS & Shortest Path Algorithm. This
-project consists of an Android application to broadcast the location of the device, a hardware
-system to make a bin as smart bin and a web interface to display them.
-Platforms and tools: Smart phone with android operating system, Arduino Board, ultrasonic
-Sensor, JAVA, Eclipse IDE with ADT, MYSQL, PHP, HTML, JavaScript, AJAX.</li><br>
-                            </ul><br>
-         
-    </section>
-    <section id="awd-section">
-         <div class="container">
-        <h2>Awards/Fellowships</h2>
-        </div>
-          <ul class="list-item">
-                                  <li>FIRST Fellowship IITH</li><br>
-                                  <li>ISRF Felloship - 2022</li><br>
-                                  <li>SEUSL Senate honour for high impact journal research publication </li>
-                            </ul><br>
-         
-    </section>
-    <section id="qual-section">
-         <div class="container">
-        <h2>Other Qualifications</h2>
-        </div>
-          <ul class="list-item">
-                                  <li>Successfully completed “Staff Development Course” at Eastern University of Sri Lanka.</li><br>
-                                  <li>CISCO Academy Certified Instructor
-                                      <ul>
-                                          <li>CCNA</li>
-                                          <li>IT Essential</li>
-                                          <li>DevNet</li>
-                                        </ul></li><br>
-                                  <li>Web Master of SEUSL - 2022 </li><br>
-                                   <li>Treasurer of ICST-2022</li><br>
-                                   <li>Member of Faculty Research Committee</li><br>
-                                   <li>Industrial Coordinator for Dept. of ICT</li><br>
-                                  <li>Member of TASEU Exco committee</li><br>
-                            </ul><br>
-         
-    </section>
-    <section id="conn-section">
-         <div class="container">
-        <h2>Connect With Me</h2>
-        </div>
-       <ul class="list-item">
-                                  <li>Google Scholar: https://scholar.google.com/citations?hl=en&user=wSi-78AAAAAJ</li><br>
-                                  <li>ORCID: https://orcid.org/0000-0003-0056-7683</li><br>
-                                   <li>ScopusID: https://www.scopus.com/authid/detail.uri?authorId=57195404900</li><br>
-                                   <li>Mobile No: +94760123881, +94754310081, and +918885405871</li><br>
-                                   <li>E-mail: pirapuraj@seu.ac.lk, ppirapu@gmail.com, and cs23resch16001@iith.ac.in</li><br>
-                            </ul><br>
-         
-    </section>
-    
-    <script src="script.js"></script>
+  <!-- PAGE 4: PUBLICATIONS -->
+  <div class="page" id="page-4">
+    <p class="page-eyebrow">05 · Scholarship</p>
+    <h2>Research Publications</h2>
+    <div class="page-rule"></div>
+
+    <div class="pub-group">Book Chapters</div>
+    <ul class="pub-list">
+      <li class="pub-card">Kariapper R.K.A.R., Pirapuraj P., Suhail Razeeth M.S., Nafrees A.C.M., Fathima Roshan M. (2021) Adaption of Smart Devices and Virtual Reality (VR) in Secondary Education. <em>Intelligent Learning for Computer Vision.</em> CIS 2020. Lecture Notes on Data Engineering and Communications Technologies, vol 61. Springer, Singapore.<br><a href="https://doi.org/10.1007/978-981-33-4582-9_43" target="_blank">DOI: 10.1007/978-981-33-4582-9_43 ↗</a></li>
+      <li class="pub-card">Mohamed Nafrees, A.C., Pirapuraj, P., Razeeth, M.S.M., Kariapper, R.K.A.R., Nawaz, S.S. (2022). Smart Technologies to Reduce the Spreading of COVID-19: A Survey Study. <em>Proceedings of ICIVC 2021.</em> Springer, Cham.<br><a href="https://doi.org/10.1007/978-3-030-97196-0_21" target="_blank">DOI: 10.1007/978-3-030-97196-0_21 ↗</a></li>
+    </ul>
+
+    <div class="pub-group">Journal Articles</div>
+    <ul class="pub-list">
+      <li class="pub-card">P.Pirapuraj, A.R. Kariapper, S. Razeeth, A.C.M. Nafrees. "Effectiveness of ATM and Bank Security: Three Factor Authentications With Systematic Review." <em>Journal of Physics: Conference Series,</em> vol. 1712, ICCPET 2020. J. Phys.: Conf. Ser. 1712 012007.</li>
+      <li class="pub-card">RKAR. Kariapper, MS. Suhail Razeeth, P.Pirapuraj, ACM. Nafrees, AMF. Roshan. (2020). "Positive Impact of Smart Devices Among Higher Education Students." <em>PalArch's Journal of Archaeology of Egypt / Egyptology,</em> 17(7), 11413–11321.</li>
+      <li class="pub-card">Mohammed Satheek Suhail Razeeth et al., P.Pirapuraj. "Influence of Smart Devices and IoT Applications in Tourism: A Survey Analysis." <em>Journal of Information Systems &amp; Information Technology,</em> Faculty of Management and Commerce, SEUSL.</li>
+      <li class="pub-card">Pirapuraj P. et al. (2021). "Technology-Enhanced Learning using the Virtual Lab: The Status and Implications for Future Practice." <em>Solid State Technology,</em> 64(2), 5437–5451.</li>
+    </ul>
+
+    <div class="pub-group">Conference Papers</div>
+    <ul class="pub-list">
+      <li class="pub-card">P.Pirapuraj, Dr.Indika Perera. "JarBot: Automated Java Libraries Suggestion in JAR Archives Format for a given Software Architecture." <em>2021 2nd Global Conference for Advancement in Technology (GCAT),</em> Bangalore, India. IEEE.</li>
+      <li class="pub-card">P.Pirapuraj et al. "Automated Ventilation System for Maintaining Indoor CO&#8322; Concentration to Reduce Allergic and Respiratory Diseases." <em>2021 Asian Conference on Innovation in Technology (ASIANCON),</em> IEEE, pp. 1–8.</li>
+      <li class="pub-card">M. D. R. Athas and P. Pirapuraj. "CallTran: Voice Translation for End-to-End Communication over the Internet." <em>2024 ICETITE,</em> Vellore, India, pp. 1–5.<br><a href="https://doi.org/10.1109/ic-ETITE58242.2024.10493835" target="_blank">DOI ↗</a></li>
+      <li class="pub-card">P. Pirapuraj and H. R. Afrath. "Dsn2Code: An automated approach for similarity-based Software Architecture selection for Code reuse." <em>2024 SCSE,</em> Colombo, Sri Lanka, pp. 1–6.<br><a href="https://doi.org/10.1109/SCSE61872.2024.10550890" target="_blank">DOI ↗</a></li>
+    </ul>
+
+    <div class="pub-group">Local Conference Publications</div>
+    <ul class="pub-list">
+      <li class="pub-card">P.Pirapuraj, Dr.Indika Perera. "GITHUB API and WordNet for Code Reuse." 5th Annual Science Research Session 2016, SEUSL.</li>
+      <li class="pub-card">P.Pirapuraj, Dr.Indika Perera. "Automated Optimization and Suggestion of Libraries and Patterns for Software Architectures." ERU Symposium, University of Moratuwa, 2016.</li>
+      <li class="pub-card">P.Pirapuraj, Dr.HMM.Naleer. "Object Tracking System with Smart Phone using GPS." 3rd Annual Science Research Session 2014, SEUSL.</li>
+      <li class="pub-card">P.Pirapuraj et al. "E-Learning At Home Vs Traditional Learning Among Higher Education Students." International Symposium 2019, SEUSL.</li>
+      <li class="pub-card">P.Pirapuraj et al. "Perceptions of Students on ICT Subject." Open University Research Session (OURS-2019), Open University of Sri Lanka.</li>
+      <li class="pub-card">P.Pirapuraj et al. "Impact of Social Networking Media among Undergraduates in Higher Educational Institution." 4th Annual Research Conference, Trinco 2019, Eastern University of Sri Lanka.</li>
+      <li class="pub-card">P.Pirapuraj et al. "Influence of Smart Devices and IoT Applications in Tourism: A Survey Analysis." 8th Annual International Research Conference 2019, SEUSL.</li>
+      <li class="pub-card">Uyaam Maalik, P Pirapuraj. "Intelligent Vehicle Diagnostic System for Service Center using OBD-II and IoT." 1st International Conference on Science and Technology 2021, SEUSL. ISBN: 9786245736171.</li>
+    </ul>
+
+    <div class="page-nav-row">
+      <button class="pager" onclick="showPage(3)">← Interests</button>
+      <span class="page-indicator">5 / 8</span>
+      <button class="pager" onclick="showPage(5)">Projects →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 5: PROJECTS -->
+  <div class="page" id="page-5">
+    <p class="page-eyebrow">06 · Work</p>
+    <h2>Project Profiles</h2>
+    <div class="page-rule"></div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <h3>MSc Research Project</h3>
+        <p>Analyzing source code identifiers for code reuse.</p>
+        <div class="proj-tags"><span>Java</span><span>Eclipse IDE</span><span>GitHub API</span><span>NLP</span><span>IR</span></div>
+      </div>
+      <div class="proj-card">
+        <h3>WSO2 VirtualHackathon</h3>
+        <p>Real-time event processing system for a smart home in WSO2's 24-hour online challenge.</p>
+        <div class="proj-tags"><span>WSO2 PaaS</span><span>Kubernetes</span><span>Storm</span><span>Spark SQL</span></div>
+      </div>
+      <div class="proj-card">
+        <h3>Intel IoT Competition</h3>
+        <p>Smart home project using Arduino hardware and electronics equipment.</p>
+        <div class="proj-tags"><span>Arduino</span><span>IoT</span><span>Electronics</span></div>
+      </div>
+      <div class="proj-card">
+        <h3>Object Tracking System</h3>
+        <p>Android app broadcasting device location with a web interface for real-time display.</p>
+        <div class="proj-tags"><span>Java</span><span>Android</span><span>MySQL</span><span>PHP</span><span>AJAX</span></div>
+      </div>
+      <div class="proj-card">
+        <h3>Filling Station Management System</h3>
+        <p>Group project to reduce human error and manage staff details, salary, and maintenance records.</p>
+        <div class="proj-tags"><span>Java</span><span>SQL</span><span>NetBeans IDE</span></div>
+      </div>
+      <div class="proj-card">
+        <h3>Smart Garbage Collection</h3>
+        <p>Arduino hardware with GPS and an Android app to manage smart bins via shortest path algorithm.</p>
+        <div class="proj-tags"><span>Arduino</span><span>Android</span><span>GPS</span><span>Ultrasonic Sensor</span><span>PHP</span></div>
+      </div>
+    </div>
+    <div class="page-nav-row">
+      <button class="pager" onclick="showPage(4)">← Publications</button>
+      <span class="page-indicator">6 / 8</span>
+      <button class="pager" onclick="showPage(6)">Awards →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 6: AWARDS -->
+  <div class="page" id="page-6">
+    <p class="page-eyebrow">07 · Recognition</p>
+    <h2>Awards, Fellowships &amp; Roles</h2>
+    <div class="page-rule"></div>
+    <ul class="award-list">
+      <li class="award-item"><div class="award-star">★</div><span>FIRST Fellowship — IIT Hyderabad</span></li>
+      <li class="award-item"><div class="award-star">★</div><span>ISRF Fellowship — 2022</span></li>
+      <li class="award-item"><div class="award-star">★</div><span>SEUSL Senate Honour for High Impact Journal Research Publication</span></li>
+    </ul>
+
+    <p class="page-eyebrow" style="margin-top:2.5rem; margin-bottom:1rem">Other Qualifications</p>
+    <ul class="quals-list">
+      <li>Successfully completed <strong>Staff Development Course</strong> at Eastern University of Sri Lanka.</li>
+      <li><strong>CISCO Academy Certified Instructor</strong><div class="quals-sub">CCNA &nbsp;·&nbsp; IT Essentials &nbsp;·&nbsp; DevNet</div></li>
+      <li><strong>Web Master of SEUSL</strong> — 2022</li>
+      <li><strong>Treasurer of ICST-2022</strong></li>
+      <li>Member of <strong>Faculty Research Committee</strong></li>
+      <li><strong>Industrial Coordinator</strong> for Dept. of ICT</li>
+      <li>Member of <strong>TASEU Exco Committee</strong></li>
+    </ul>
+    <div class="page-nav-row">
+      <button class="pager" onclick="showPage(5)">← Projects</button>
+      <span class="page-indicator">7 / 8</span>
+      <button class="pager" onclick="showPage(7)">Connect →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 7: CONNECT -->
+  <div class="page" id="page-7">
+    <p class="page-eyebrow">08 · Contact</p>
+    <h2>Connect With Me</h2>
+    <div class="page-rule"></div>
+    <div class="connect-grid">
+      <a class="connect-card" href="https://scholar.google.com/citations?hl=en&user=wSi-78AAAAAJ" target="_blank">
+        <div class="connect-icon">GS</div>
+        <div class="connect-info"><label>Google Scholar</label><span>View Publications ↗</span></div>
+      </a>
+      <a class="connect-card" href="https://orcid.org/0000-0003-0056-7683" target="_blank">
+        <div class="connect-icon">OR</div>
+        <div class="connect-info"><label>ORCID</label><span>0000-0003-0056-7683</span></div>
+      </a>
+      <a class="connect-card" href="https://www.scopus.com/authid/detail.uri?authorId=57195404900" target="_blank">
+        <div class="connect-icon">SC</div>
+        <div class="connect-info"><label>Scopus ID</label><span>57195404900</span></div>
+      </a>
+      <a class="connect-card" href="mailto:cs23resch16001@iith.ac.in">
+        <div class="connect-icon">@</div>
+        <div class="connect-info"><label>IITH Email</label><span>cs23resch16001@iith.ac.in</span></div>
+      </a>
+      <a class="connect-card" href="mailto:pirapuraj@seu.ac.lk">
+        <div class="connect-icon">@</div>
+        <div class="connect-info"><label>SEUSL Email</label><span>pirapuraj@seu.ac.lk</span></div>
+      </a>
+      <a class="connect-card" href="mailto:ppirapu@gmail.com">
+        <div class="connect-icon">@</div>
+        <div class="connect-info"><label>Personal Email</label><span>ppirapu@gmail.com</span></div>
+      </a>
+      <div class="connect-card" style="cursor:default;">
+        <div class="connect-icon">LK</div>
+        <div class="connect-info"><label>Mobile (Sri Lanka)</label><span>+94 760 123 881 / +94 754 310 081</span></div>
+      </div>
+      <div class="connect-card" style="cursor:default;">
+        <div class="connect-icon">IN</div>
+        <div class="connect-info"><label>Mobile (India)</label><span>+91 888 540 5871</span></div>
+      </div>
+    </div>
+    <div class="page-nav-row">
+      <button class="pager" onclick="showPage(6)">← Awards</button>
+      <span class="page-indicator">8 / 8</span>
+      <button class="pager" onclick="showPage(0)">Back to Start →</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  &copy; 2025 Ponnampalam Pirapuraj &nbsp;·&nbsp; PhD Scholar, IIT Hyderabad &nbsp;·&nbsp; Senior Lecturer, SEUSL
+</footer>
+
+<script>
+  const totalPages = 8;
+  let current = 0;
+  function showPage(n) {
+    document.querySelectorAll('.page').forEach((p, i) => p.classList.toggle('active', i === n));
+    document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', i === n));
+    current = n;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' && current < totalPages - 1) showPage(current + 1);
+    if (e.key === 'ArrowLeft' && current > 0) showPage(current - 1);
+  });
+</script>
 </body>
 </html>
-
